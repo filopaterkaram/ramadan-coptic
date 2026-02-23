@@ -20,8 +20,8 @@
         .card {
             background: linear-gradient(135deg, #166534 0%, #15803d 100%);
             width: 100%;
-            max-width: 900px;
-            min-height: 600px;
+            max-width: 1250px;
+            min-height: 800px;
             border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             padding: 40px;
@@ -74,15 +74,15 @@
         }
         .student-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 5fr));
             gap: 12px;
-            flex-grow: 1;
+            flex-grow: 2;
             overflow-y: auto;
             max-height: 500px;
             padding: 10px;
         }
         .student-list::-webkit-scrollbar {
-            width: 6px;
+            width: 10px;
         }
         .student-list::-webkit-scrollbar-thumb {
             background: rgba(250, 204, 21, 0.5);
@@ -136,7 +136,7 @@
         }
         .footer-text {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 10px;
             font-size: 1.1rem;
             font-weight: bold;
             color: #facc15;
@@ -206,7 +206,7 @@
                 const item = document.createElement('div');
                 item.className = 'student-item';
                 item.innerHTML = `
-                    <div class="student-name"><span class="medal">🥇</span>${student.name}</div>
+                    <div class="student-name"><span class="medal">الطالب : </span>${student.name}</div>
                     <div class="student-info">
                         <span>الفصل: ${student.class}</span>
                         <div class="stats-group">
@@ -225,8 +225,6 @@
 </body>
 
 </html>
-
-
 
 
 
