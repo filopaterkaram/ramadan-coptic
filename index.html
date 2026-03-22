@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نتائج مسابقة رمضان أخضر... استدامة وعبادة </title>
+    <title>نتائج مسابقة رمضان أخضر</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -212,6 +212,27 @@
             position: relative;
             border: 8px solid #166534;
         }
+        
+        .honor-box {
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: 2px dashed;
+        }
+        .honor-success {
+            background-color: #dcfce7;
+            color: #166534;
+            border-color: #22c55e;
+        }
+        .honor-try-again {
+            background-color: #fef9c3;
+            color: #854d0e;
+            border-color: #facc15;
+        }
+
         .day-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -241,8 +262,8 @@
     <div class="star-icon" style="top: 25%; right: 25%;">✦</div>
     <div class="star-icon" style="bottom: 20%; left: 15%;">✦</div>
 
-    <h1 class="header-title"> مدرسة الاقباط الثانوية بنين بالمنيا</h1>
-    <div class="sub-title">نتائج مسابقة رمضان أخضر... استدامة وعبادة </div>
+    <h1 class="header-title">مسابقة رمضان أخضر</h1>
+    <div class="sub-title">لوحة شرف استدامة وعبادة</div>
 
     <div class="search-container">
         <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن اسمك لمراجعة نتيجتك التفصيلية...">
@@ -260,10 +281,14 @@
 
 <div id="detailsModal" class="modal" onclick="closeModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <div class="flex justify-between items-center border-b-4 border-green-700 pb-4 mb-6">
+        <div class="flex justify-between items-center border-b-4 border-green-700 pb-4 mb-4">
             <h2 id="modalStudentName" class="text-3xl font-bold text-green-800 font-serif"></h2>
             <button onclick="document.getElementById('detailsModal').style.display='none'" class="text-5xl text-red-600">&times;</button>
         </div>
+
+        <!-- صندوق الملحوظة / التكريم -->
+        <div id="honorNote" class="honor-box"></div>
+
         <div id="modalStats" class="grid grid-cols-3 gap-4 mb-6"></div>
         <div class="day-grid" id="dayGrid"></div>
     </div>
@@ -272,7 +297,7 @@
 <script>
     const modelAnswers = ["ج", "ج", "أ", "ج", "ج", "ب", "أ", "ج", "أ", "ب", "ج", "ب", "أ", "ب", "أ", "ب", "ج", "ج", "أ", "أ", "ب", "أ", "ج", "أ", "ج", "ب", "أ", "ج", "أ", "ب"];
 
-    const studentsData =[
+    const studentsData =
 { name: "حمزة أحمد مختار", class: "1/1", answers: ["___","ج","ب","ج","ج","ب","أ","ج","أ","ب","ج","أ","أ","ب","أ","ب","ج","ج","أ","أ","ب","أ","ج","أ","ج","___","ب","ج","ج","ب"] },
 { name: "عمر محمود رمضان", class: "2/2", answers: ["ج","ج","___","ج","ج","ب","أ","ج","أ","___","ج","___","أ","ب","أ","ب","ج","___","أ","أ","ب","___","ج","أ","ج","ب","أ","ج","___","___"] },
 { name: "يوسف ماجد فايز", class: "2/2", answers: ["ج","ج","أ","ج","ج","ب","___","ج","___","ب","ج","ب","أ","","أ","___","ج","___","أ","___","___","أ","___","أ","ج","ب","أ","ج","أ","ب"] },
@@ -312,11 +337,13 @@
                 else wrong++;
             }
         });
+        const percentageValue = Math.round((correct / 30) * 100);
         return { 
             c: correct, 
             w: wrong, 
             m: missing, 
-            p: Math.round((correct / 30) * 100) + "%" 
+            pv: percentageValue,
+            p: percentageValue + "%" 
         };
     }
 
@@ -334,7 +361,7 @@
                     <div class="student-main-info">
                         <div class="student-name">★ ${s.name}</div>
                         <div class="student-class">الفصل: ${s.class}</div>
-                        <div class="click-hint">اضغط لمراجعة التفاصيل أكثر ⮕</div>
+                        <div class="click-hint">اضغط لمراجعة التفاصيل أكثر ⮕ ${s.st.pv > 50 ? '🎁 مستحق لتكريم' : ''}</div>
                     </div>
                     <div class="stats-summary">
                         <div class="summary-badge badge-correct"><span>صح</span><span>${s.st.c}</span></div>
@@ -348,11 +375,23 @@
     }
 
     function show(s) {
+        const stats = calculate(s.answers);
         document.getElementById('modalStudentName').innerText = s.name;
+        
+        // منطق الملحوظة / التكريم
+        const honorBox = document.getElementById('honorNote');
+        if (stats.pv >= 50) {
+            honorBox.className = "honor-box honor-success";
+            honorBox.innerHTML = "🏆 برافو عليك يا بطل! درجتك ممتازة ولك تكريم خاص.. استمر في التميز! ✨";
+        } else {
+            honorBox.className = "honor-box honor-try-again";
+            honorBox.innerHTML = "💪 أداء جيد، لكن شد حيلك المرة الجاية.. الدرجة دي هتتعوض وتكون من الأوائل المرة الجاية إن شاء الله! 🌟";
+        }
+
         document.getElementById('modalStats').innerHTML = `
-            <div class="bg-green-100 p-4 rounded-xl text-center"><p class="text-xs text-green-700 font-bold">إجابات صحيحة</p><p class="text-2xl font-bold">${s.st.c}</p></div>
-            <div class="bg-red-100 p-4 rounded-xl text-center"><p class="text-xs text-red-700 font-bold">إجابات خاطئة</p><p class="text-2xl font-bold">${s.st.w}</p></div>
-            <div class="bg-yellow-100 p-4 rounded-xl text-center"><p class="text-xs text-yellow-700 font-bold">النسبة المئوية</p><p class="text-2xl font-bold">${s.st.p}</p></div>
+            <div class="bg-green-100 p-4 rounded-xl text-center"><p class="text-xs text-green-700 font-bold">إجابات صحيحة</p><p class="text-2xl font-bold">${stats.c}</p></div>
+            <div class="bg-red-100 p-4 rounded-xl text-center"><p class="text-xs text-red-700 font-bold">إجابات خاطئة</p><p class="text-2xl font-bold">${stats.w}</p></div>
+            <div class="bg-yellow-100 p-4 rounded-xl text-center"><p class="text-xs text-yellow-700 font-bold">النسبة المئوية</p><p class="text-2xl font-bold">${stats.p}</p></div>
         `;
         const grid = document.getElementById('dayGrid');
         grid.innerHTML = '';
