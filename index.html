@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تهنئة الفائزين - رمضان أخضر</title>
+    <title>نتائج مسابقة رمضان أخضر... استدامة وعبادة </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -16,215 +16,360 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            position: relative;
         }
         .card {
             background: linear-gradient(135deg, #166534 0%, #15803d 100%);
             width: 100%;
             max-width: 1250px;
-            min-height: 800px;
+            min-height: 850px;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             padding: 40px;
             color: white;
             position: relative;
             overflow: hidden;
-            border: 8px solid #facc15;
-            display: flex;
-            flex-direction: column;
-        }
-        .card::before {
-            content: '🌙';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 3rem;
-            opacity: 0.2;
-        }
-       .card::after{
-            content: 'EL-Producer Filopater Karam🌿';
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            font-size: 1rem;
-            opacity: 0.2;
-        }
-         .card::backdrop{
-            content: '🌿';
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 1rem;
-            opacity: 0.2;
+            border: 4px solid #facc15;
         }
 
-        .title {
+        .watermark-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.05);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1;
             font-family: 'Amiri', serif;
-            font-size: 2.8rem;
-            text-align: center;
+        }
+
+        .moon-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
             color: #facc15;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            filter: drop-shadow(0 0 10px #facc15);
+            animation: float 3s ease-in-out infinite;
+            z-index: 5;
         }
-        .subtitle {
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .star-icon {
+            position: absolute;
+            color: #facc15;
+            animation: blink 2s infinite;
+            z-index: 5;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .header-title {
+            font-family: 'Amiri', serif;
+            font-size: 4.5rem;
             text-align: center;
-            font-size: 1.3rem;
-            margin-bottom: 25px;
-            border-bottom: 2px solid rgba(250, 204, 21, 0.3);
-            padding-bottom: 10px;
+            margin-bottom: 5px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 10;
         }
-        .student-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 5fr));
-            gap: 12px;
-            flex-grow: 2;
-            overflow-y: auto;
-            max-height: 500px;
-            padding: 10px;
+        .sub-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #facc15;
+            margin-bottom: 35px;
+            font-weight: bold;
+            position: relative;
+            z-index: 10;
         }
-        .student-list::-webkit-scrollbar {
-            width: 10px;
+
+        .search-container {
+            max-width: 650px;
+            margin: 0 auto 40px auto;
+            position: relative;
+            z-index: 20;
         }
-        .student-list::-webkit-scrollbar-thumb {
-            background: rgba(250, 204, 21, 0.5);
-            border-radius: 10px;
-        }
-        .student-item {
+        .search-box {
             background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #facc15;
+            border-radius: 50px;
+            padding: 15px 30px;
+            width: 100%;
+            color: white;
+            font-size: 1.3rem;
+            outline: none;
             backdrop-filter: blur(5px);
-            padding: 12px 15px;
-            border-radius: 12px;
-            border-right: 4px solid #facc15;
+            text-align: center;
+        }
+
+        #list-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            gap: 15px;
+            position: relative;
+            z-index: 20;
+            max-height: 550px;
+            overflow-y: auto;
+            padding-right: 10px;
         }
-        .student-name {
-            font-weight: bold;
-            font-size: 1.05rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .student-info {
-            font-size: 0.85rem;
-            color: #d1fae5;
+        #list-container::-webkit-scrollbar { width: 8px; }
+        #list-container::-webkit-scrollbar-thumb { background: #facc15; border-radius: 10px; }
+
+        .student-item {
+            background: rgba(0, 0, 0, 0.25);
+            border-right: 6px solid #facc15;
+            border-radius: 15px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 6px;
+            transition: 0.4s;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .stats-group {
+        .student-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-5px);
+        }
+
+        .student-main-info {
             display: flex;
-            gap: 5px;
+            flex-direction: column;
+            gap: 4px;
         }
-        .badge {
-            background: #facc15;
-            color: #166534;
-            padding: 1px 8px;
-            border-radius: 20px;
+        .student-name { font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .student-class { font-size: 0.9rem; color: #dcfce7; opacity: 0.9; }
+
+        .stats-summary {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .summary-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 65px;
+            padding: 5px;
+            border-radius: 10px;
+            font-size: 0.8rem;
             font-weight: bold;
+        }
+        .badge-correct { background: #15803d; color: #fff; border: 1px solid #22c55e; }
+        .badge-wrong { background: #991b1b; color: #fff; border: 1px solid #ef4444; }
+        .badge-missing { background: #4b5563; color: #fff; border: 1px solid #9ca3af; }
+        .badge-total { background: #facc15; color: #166534; font-size: 1rem; padding: 8px 15px; }
+
+        .click-hint {
             font-size: 0.75rem;
-        }
-        .points-badge {
-            background: #ffffff;
-            color: #15803d;
-            padding: 1px 8px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.75rem;
-            border: 1px solid #facc15;
-        }
-        .footer-text {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
             color: #facc15;
+            margin-top: 5px;
+            text-align: left;
+            font-style: italic;
         }
-        .medal {
-            margin-left: 8px;
+
+        .footer-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed rgba(255,255,255,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
         }
+        .signature { font-family: 'Amiri', serif; font-size: 1.6rem; color: #facc15; }
+        .creator-tag { font-size: 0.9rem; color: rgba(255,255,255,0.7); font-style: italic; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            background: white;
+            color: #1a2e1a;
+            width: 100%;
+            max-width: 900px;
+            max-height: 85vh;
+            border-radius: 30px;
+            overflow-y: auto;
+            padding: 35px;
+            position: relative;
+            border: 8px solid #166534;
+        }
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .day-box {
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #eee;
+            font-size: 0.8rem;
+        }
+        .correct { background: #dcfce7; border-color: #22c55e; color: #166534; }
+        .wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+        .missing { background: #f3f4f6; color: #9ca3af; }
     </style>
 </head>
 <body>
 
-    <div class="card" id="main-card">
-        <h1 class="title"> مدرسة الاقباط الثانوية بنين - المنيا</h1>
-        <p class="subtitle" id="day-title">اوائل مسابقة "رمضان أخضر... استدامة وعبادة "</p>
-        
-        <div class="student-list" id="list-container">
-            <!-- سيتم إضافة الطلاب هنا تلقائياً بواسطة JavaScript -->
-        </div>
+<div class="card">
+<div class="watermark-bg">
+        <img src="my logo.png" alt="العلامة المائية" style="width: 300px; height: auto ;filter: opacity(0.5);animation: float 3s ease-in-out infinite;backdrop-filter: blur(10px);">
+    </div>
+    <div class="moon-icon">🌙</div>
+    <div class="star-icon" style="top: 15%; right: 10%;">✦</div>
+    <div class="star-icon" style="top: 25%; right: 25%;">✦</div>
+    <div class="star-icon" style="bottom: 20%; left: 15%;">✦</div>
 
-        <div class="footer-text">
-            تهانينا من اسرة التنمية المستدامة .. ! 🌿✨
-        </div>
+    <h1 class="header-title"> مدرسة الاقباط الثانوية بنين بالمنيا</h1>
+    <div class="sub-title">نتائج مسابقة رمضان أخضر... استدامة وعبادة </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن اسمك لمراجعة نتيجتك التفصيلية...">
     </div>
 
-    <script>
-        // --- قسم البيانات: يمكنك تعديل الأسماء هنا بسهولة ---
-        const config = {
-            dayText: " مسابقة \"رمضان أخضر... استدامة وعبادة\"",
-            students:[
-{ name: "حمزة أحمد مختار", class: "1/1", result: "70%", points: "21" },
-{ name: "عمر محمود رمضان", class: "2/2", result: "63%", points: "19" },
-{ name: "صموئيل محروس رمزي", class: "2/1", result: "57%", points: "17" },
-{ name: "يوسف ماجد فايز", class: "2/2", result: "53%", points: "16" },
-{ name: "يوسف احمد عبد السلام", class: "2/2", result: "53%", points: "16" },
-{ name: "عبدالرحمن أحمد عادل", class: "2/1", result: "43%", points: "13" },
-{ name: "محمد عماد حسين", class: "1/1", result: "37%", points: "11" },
-{ name: "روفائيل رضا حزين", class: "3/2", result: "37%", points: "11" },
-{ name: "إياد خالد مصطفى حسين", class: "1/2", result: "30%", points: "9" },
-{ name: "زياد عماد حسين", class: "2/1", result: "30%", points: "9" }
+    <div id="list-container">
+        <!-- القائمة -->
+    </div>
 
+    <div class="footer-section">
+        <div class="signature">تحيات أسرة التنمية المستدامة</div>
+        <div class="creator-tag">FILOPATER KARAM EL-PRODUCER ★</div>
+    </div>
+</div>
 
-                // لإضافة طالب جديد:
-                // { name: "الاسم", class: "الفصل", result: "100%", points: "عدد النقاط" }
-            ]
+<div id="detailsModal" class="modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center border-b-4 border-green-700 pb-4 mb-6">
+            <h2 id="modalStudentName" class="text-3xl font-bold text-green-800 font-serif"></h2>
+            <button onclick="document.getElementById('detailsModal').style.display='none'" class="text-5xl text-red-600">&times;</button>
+        </div>
+        <div id="modalStats" class="grid grid-cols-3 gap-4 mb-6"></div>
+        <div class="day-grid" id="dayGrid"></div>
+    </div>
+</div>
+
+<script>
+    const modelAnswers = ["ج", "ج", "أ", "ج", "ج", "ب", "أ", "ج", "أ", "ب", "ج", "ب", "أ", "ب", "أ", "ب", "ج", "ج", "أ", "أ", "ب", "أ", "ج", "أ", "ج", "ب", "أ", "ج", "أ", "ب"];
+
+    const studentsData =[
+{ name: "حمزة أحمد مختار", class: "1/1", answers: ["___","ج","ب","ج","ج","ب","أ","ج","أ","ب","ج","أ","أ","ب","أ","ب","ج","ج","أ","أ","ب","أ","ج","أ","ج","___","ب","ج","ج","ب"] },
+{ name: "عمر محمود رمضان", class: "2/2", answers: ["ج","ج","___","ج","ج","ب","أ","ج","أ","___","ج","___","أ","ب","أ","ب","ج","___","أ","أ","ب","___","ج","أ","ج","ب","أ","ج","___","___"] },
+{ name: "يوسف ماجد فايز", class: "2/2", answers: ["ج","ج","أ","ج","ج","ب","___","ج","___","ب","ج","ب","أ","","أ","___","ج","___","أ","___","___","أ","___","أ","ج","ب","أ","ج","أ","ب"] },
+{ name: "صموئيل محروس رمزي", class: "2/1", answers: ["___","ج","أ","ج","ج","ب","___","ج","أ","ب","ج","___","أ","ب","","___","ج","___","أ","أ","ب","___","ج","أ","ج","ب","أ","___","ج","ب"] },
+{ name: "يوسف احمد عبد السلام", class: "2/2", answers: ["___","___","أ","أ","أ","___","أ","ج","أ","ب","ج","___","أ","ب","أ","ب","ج","___","___","أ","ب","أ","ج","أ","ج","ب","ب","___","ج","ب"] },
+{ name: "عبدالرحمن أحمد عادل", class: "2/1", answers: ["___","ج","أ","أ","___","___","___","___","أ","أ","ج","أ","أ","___","أ","ب","___","ج","أ","أ","___","أ","ج","أ","ج","ب","ب","ج","ج","ب"] },
+{ name: "روفائيل رضا حزين", class: "3/2", answers: ["ج","___","أ","أ","ب","ب","___","ج","أ","ب","___","___","أ","ب","___","___","ب","أ","أ","___","___","ب","ج","أ","أ","ب","أ","ج","أ","ب"] },
+{ name: "محمد عماد حسين", class: "1/1", answers: ["___","___","أ","ج","___","ب","أ","ج","___","___","___","ب","أ","ب","___","___","___","ج","___","___","___","أ","ج","___","___","___","___","___","___","___"] },
+{ name: "زياد عماد حسين", class: "2/1", answers: ["___","___","أ","ج","___","___","___","ج","___","أ","ج","أ","___","ب","___","ب","ج","___","___","أ","___","___","ج","___","___","ب","___","ج","ج","أ"] },
+{ name: "إياد خالد مصطفى حسين", class: "1/2", answers: ["___","___","___","ج","___","___","___","ج","___","___","ج","___","أ","ب","___","___","ج","ج","أ","___","___","___","___","أ","ج","___","ب","___","___","___"] },
+{ name: "فلوباتير هاني اديب", class: "2/3", answers: ["___","___","أ","ج","ج","___","___","___","___","___","___","___","أ","___","___","___","ج","ج","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "محمد محمد عبدالرازق", class: "2/2", answers: ["ج","___","أ","ج","ج","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "عبدالرحمن محمد", class: "2/1", answers: ["ج","___","___","ج","___","___","___","___","___","___","ج","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "مهاب محمد محمد", class: "1/3", answers: ["___","___","___","ج","ج","___","أ","___","___","ج","___","___","___","___","___","","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "زياد حماده علي", class: "2/1", answers: ["___","___","أ","أ","___","___","___","___","___","أ","___","___","أ","___","___","ب","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "كارلوس وسيم عاطف", class: "1/3", answers: ["ج","___","___","___","___","___","___","___","___","ب","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "أحمد محمد رمضان", class: "2/3", answers: ["ج","___","___","___","___","ب","___","___","___","","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "ياسين سيد ماضى", class: "1/2", answers: ["___","___","___","ج","ج","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "نور الدين محمد شحاته", class: "2/3", answers: ["___","ج","___","ج","___","___","","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "يوسف احمد علي", class: "1/3", answers: ["___","___","___","___","___","___","___","___","___","___","___","___","أ","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "عبدالله نجيب محمد", class: "2/1", answers: ["___","___","___","___","___","___","___","ج","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "عاصم سميح", class: "1/2", answers: ["ج","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "محمود محمد محمود", class: "2/1", answers: ["ج","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "ادم شريف عبدالعال", class: "2/3", answers: ["ج","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "ابانوب ايهاب عزيز", class: "2/3", answers: ["___","___","___","أ","___","___","___","___","___","___","___","___","___","","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "عبدالله علي مختار", class: "3/2", answers: ["___","___","___","___","ج","أ","___","___","___","___","___","___","___","أ","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "يوسف عمرو كمال", class: "2/3", answers: ["___","___","___","ج","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] },
+{ name: "حمزة أحمد محمد", class: "2/1", answers: ["___","___","أ","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___","___"] }
+];
+
+    function calculate(ans) {
+        let correct = 0, wrong = 0, missing = 0;
+        ans.forEach((v, i) => {
+            if (v === "___") { missing++; }
+            else {
+                if (v.trim()[0] === modelAnswers[i]) correct++;
+                else wrong++;
+            }
+        });
+        return { 
+            c: correct, 
+            w: wrong, 
+            m: missing, 
+            p: Math.round((correct / 30) * 100) + "%" 
         };
+    }
 
-        function renderCard() {
-            document.getElementById('day-title').innerText = config.dayText;
-            const container = document.getElementById('list-container');
-            container.innerHTML = '';
-
-            config.students.forEach(student => {
-                const item = document.createElement('div');
-                item.className = 'student-item';
-                item.innerHTML = `
-                    <div class="student-name"><span class="medal">الطالب : </span>${student.name}</div>
-                    <div class="student-info">
-                        <span>الفصل: ${student.class}</span>
-                        <div class="stats-group">
-                            <span class="points-badge">${student.points} نقطة</span>
-                            <span class="badge">${student.result}</span>
-                        </div>
+    function render(f = "") {
+        const container = document.getElementById('list-container');
+        container.innerHTML = '';
+        studentsData.map(s => ({...s, st: calculate(s.answers)}))
+            .sort((a,b) => b.st.c - a.st.c)
+            .filter(s => s.name.includes(f))
+            .forEach(s => {
+                const div = document.createElement('div');
+                div.className = 'student-item';
+                div.onclick = () => show(s);
+                div.innerHTML = `
+                    <div class="student-main-info">
+                        <div class="student-name">★ ${s.name}</div>
+                        <div class="student-class">الفصل: ${s.class}</div>
+                        <div class="click-hint">اضغط لمراجعة التفاصيل أكثر ⮕</div>
+                    </div>
+                    <div class="stats-summary">
+                        <div class="summary-badge badge-correct"><span>صح</span><span>${s.st.c}</span></div>
+                        <div class="summary-badge badge-wrong"><span>خطأ</span><span>${s.st.w}</span></div>
+                        <div class="summary-badge badge-missing"><span>باقي</span><span>${s.st.m}</span></div>
+                        <div class="summary-badge badge-total"><span>${s.st.p}</span></div>
                     </div>
                 `;
-                container.appendChild(item);
+                container.appendChild(div);
             });
-        }
+    }
 
-        window.onload = renderCard;
-    </script>
+    function show(s) {
+        document.getElementById('modalStudentName').innerText = s.name;
+        document.getElementById('modalStats').innerHTML = `
+            <div class="bg-green-100 p-4 rounded-xl text-center"><p class="text-xs text-green-700 font-bold">إجابات صحيحة</p><p class="text-2xl font-bold">${s.st.c}</p></div>
+            <div class="bg-red-100 p-4 rounded-xl text-center"><p class="text-xs text-red-700 font-bold">إجابات خاطئة</p><p class="text-2xl font-bold">${s.st.w}</p></div>
+            <div class="bg-yellow-100 p-4 rounded-xl text-center"><p class="text-xs text-yellow-700 font-bold">النسبة المئوية</p><p class="text-2xl font-bold">${s.st.p}</p></div>
+        `;
+        const grid = document.getElementById('dayGrid');
+        grid.innerHTML = '';
+        s.answers.forEach((v, i) => {
+            const isC = v !== "___" && v.trim()[0] === modelAnswers[i];
+            const isM = v === "___";
+            grid.innerHTML += `<div class="day-box ${isM?'missing':isC?'correct':'wrong'}">
+                <b>يوم ${i+1}</b><br><small>ج: ${v}</small><br><small style="opacity:0.6">الصح: ${modelAnswers[i]}</small>
+            </div>`;
+        });
+        document.getElementById('detailsModal').style.display = 'flex';
+    }
+
+    function closeModal(e) { if(e.target.id === 'detailsModal') e.target.style.display = 'none'; }
+    document.getElementById('searchInput').oninput = (e) => render(e.target.value);
+    window.onload = render;
+</script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
